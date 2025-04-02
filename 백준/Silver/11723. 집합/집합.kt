@@ -1,10 +1,15 @@
+import java.io.*
+
 fun main() {
-    val n = readln().toInt()
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.`out`))
+    
+    val n = br.readLine().toInt()
     var bitMask = 0
     val resultBuilder = StringBuilder()
 
     repeat(n) {
-        val line = readln().split(" ")
+        val line = br.readLine().split(" ")
         when(line[0]) {
             "add" -> bitMask = bitMask.or(1 shl (line[1].toInt() - 1))
             "remove" -> bitMask = bitMask.and((1 shl (line[1].toInt() - 1)).inv())
@@ -14,6 +19,8 @@ fun main() {
             "empty" -> bitMask = 0
         }
     }
-    
-    println(resultBuilder.toString())
+
+    bw.write(resultBuilder.toString())
+    bw.flush()
+    bw.close()
 }
