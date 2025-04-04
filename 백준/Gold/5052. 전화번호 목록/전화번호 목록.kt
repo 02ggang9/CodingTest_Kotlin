@@ -13,18 +13,12 @@ fun main() {
 
         fun add(s: String): Boolean {
             var current = ROOT
-            for (c in s) {
-                if (check[current]) return true  // Case 1: 지금 번호가 다른 번호의 접두사
-                val digit = charToInt(c)
-                if (trie[current][digit] == -1) {
-                    trie[current][digit] = unused++
-                }
-                current = trie[current][digit]
+            s.forEach {
+                if (check[current]) return true
+                if (trie[current][charToInt(it)] == -1) trie[current][charToInt(it)] = unused++
+                current = trie[current][charToInt(it)]
             }
-            // Case 2: 이미 있는 번호가 지금 번호의 접두사
-            for (i in 0 until 10) {
-                if (trie[current][i] != -1) return true
-            }
+            if (trie[current].any { it != -1 }) return true
             check[current] = true
             return false
         }
