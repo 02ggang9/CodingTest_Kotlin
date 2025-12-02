@@ -16,11 +16,11 @@ fun main() {
                 }
             }
 
-            loggers
+            val ranking = loggers
                 .sortedWith(compareBy({ -it.getTotalScore() }, { it.submissionCount }, { it.lastSubmissionCount }))
-                .forEachIndexed { index, logger ->
-                    if (logger.id == myTeamId) println(index + 1)
-                }
+                .indexOfFirst { it.id == myTeamId } + 1
+
+            println(ranking)
         }
     }
 }
